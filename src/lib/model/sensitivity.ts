@@ -19,7 +19,7 @@ interface VarDef {
  * chart rather than a decorative one.
  */
 export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
-  const cur = inputs.currency
+  const cur = inputs.baseline.currency
   const pct = (v: number) => formatPercent(v)
   const money = (v: number) => formatCurrency(v, cur)
 
