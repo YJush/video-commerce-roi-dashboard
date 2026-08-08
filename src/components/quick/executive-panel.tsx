@@ -21,9 +21,9 @@ function Stat({
 }: {
   label: string
   value: string
-  sub?: string
-  emphasis?: boolean
-  positive?: boolean
+  sub?: string | undefined
+  emphasis?: boolean | undefined
+  positive?: boolean | undefined
 }) {
   return (
     <div

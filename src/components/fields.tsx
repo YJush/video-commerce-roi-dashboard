@@ -29,9 +29,9 @@ function FieldShell({
 }: {
   id: string
   label: string
-  hint?: string
-  kind?: InputKind
-  suffix?: string
+  hint?: string | undefined
+  kind?: InputKind | undefined
+  suffix?: string | undefined
   children: ReactNode
 }) {
   return (
