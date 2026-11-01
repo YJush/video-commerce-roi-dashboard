@@ -1,6 +1,6 @@
 # Video Commerce ROI Dashboard
 
-[![CI](https://github.com/YJush/video-commerce-roi-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/YJush/video-commerce-roi-dashboard/actions/workflows/ci.yml)
+[![CI](https://github.com/industry-contents/video-commerce-roi-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/industry-contents/video-commerce-roi-dashboard/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-B8390D.svg)](LICENSE)
 
 A browser-based business case model for shoppable video and live shopping. It estimates incremental profit, payback and the conversion lift a program needs to break even, then turns the result into a measurement plan for a controlled pilot.
@@ -38,7 +38,7 @@ React 19, TypeScript, TanStack Start, Vite, Tailwind CSS 4, shadcn/ui.
 ## Getting started
 
 ```sh
-git clone https://github.com/YJush/video-commerce-roi-dashboard.git
+git clone https://github.com/industry-contents/video-commerce-roi-dashboard.git
 cd video-commerce-roi-dashboard
 npm ci
 npm run dev
