@@ -1,18 +1,34 @@
-import { NumberField, PercentField } from "@/components/fields"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { AdoptionCurveType, ConversionInputMode, EvidenceType, ModelInputs } from "@/lib/model/types"
+import { NumberField, PercentField } from "@/components/fields";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type {
+  AdoptionCurveType,
+  ConversionInputMode,
+  EvidenceType,
+  ModelInputs,
+} from "@/lib/model/types";
 
-type Updater = (fn: (draft: ModelInputs) => void) => void
+type Updater = (fn: (draft: ModelInputs) => void) => void;
 
 export function InputForm({ inputs, update }: { inputs: ModelInputs; update: Updater }) {
-  const b = inputs.baseline
-  const r = inputs.reach
-  const e = inputs.effects
-  const c = inputs.costs
-  const f = inputs.financial
+  const b = inputs.baseline;
+  const r = inputs.reach;
+  const e = inputs.effects;
+  const c = inputs.costs;
+  const f = inputs.financial;
 
   return (
     <Accordion type="multiple" defaultValue={["baseline", "reach", "effects"]} className="w-full">
@@ -25,7 +41,10 @@ export function InputForm({ inputs, update }: { inputs: ModelInputs; update: Upd
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <Label className="font-sans text-[0.8rem] font-medium">Currency</Label>
-              <Select value={b.currency} onValueChange={(v) => update((d) => void (d.baseline.currency = v))}>
+              <Select
+                value={b.currency}
+                onValueChange={(v) => update((d) => void (d.baseline.currency = v))}
+              >
                 <SelectTrigger className="font-sans">
                   <SelectValue />
                 </SelectTrigger>
@@ -134,7 +153,9 @@ export function InputForm({ inputs, update }: { inputs: ModelInputs; update: Upd
               <Label className="font-sans text-[0.8rem] font-medium">Adoption curve</Label>
               <Select
                 value={r.adoptionCurveType}
-                onValueChange={(v) => update((d) => void (d.reach.adoptionCurveType = v as AdoptionCurveType))}
+                onValueChange={(v) =>
+                  update((d) => void (d.reach.adoptionCurveType = v as AdoptionCurveType))
+                }
               >
                 <SelectTrigger className="font-sans">
                   <SelectValue />
@@ -285,7 +306,9 @@ export function InputForm({ inputs, update }: { inputs: ModelInputs; update: Upd
               <Label className="font-sans text-[0.8rem] font-medium">Evidence type</Label>
               <Select
                 value={e.evidenceType}
-                onValueChange={(v) => update((d) => void (d.effects.evidenceType = v as EvidenceType))}
+                onValueChange={(v) =>
+                  update((d) => void (d.effects.evidenceType = v as EvidenceType))
+                }
               >
                 <SelectTrigger className="font-sans">
                   <SelectValue />
@@ -378,5 +401,5 @@ export function InputForm({ inputs, update }: { inputs: ModelInputs; update: Upd
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  )
+  );
 }

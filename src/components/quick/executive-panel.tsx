@@ -1,6 +1,6 @@
-import type { BreakEvenResult, EngineResult, ModelInputs } from "@/lib/model/types"
-import { formatCurrency, formatMonths, formatPercent } from "@/lib/model/format"
-import { cn } from "@/lib/utils"
+import type { BreakEvenResult, EngineResult, ModelInputs } from "@/lib/model/types";
+import { formatCurrency, formatMonths, formatPercent } from "@/lib/model/format";
+import { cn } from "@/lib/utils";
 
 const evidenceCopy: Record<string, { label: string; tone: "strong" | "medium" | "weak" }> = {
   company_historical: { label: "Company historical data", tone: "strong" },
@@ -10,7 +10,7 @@ const evidenceCopy: Record<string, { label: string; tone: "strong" | "medium" | 
   external_benchmark: { label: "External benchmark", tone: "weak" },
   internal_assumption: { label: "Internal assumption", tone: "weak" },
   illustrative_example: { label: "Illustrative example", tone: "weak" },
-}
+};
 
 function Stat({
   label,
@@ -19,11 +19,11 @@ function Stat({
   emphasis,
   positive,
 }: {
-  label: string
-  value: string
-  sub?: string | undefined
-  emphasis?: boolean | undefined
-  positive?: boolean | undefined
+  label: string;
+  value: string;
+  sub?: string | undefined;
+  emphasis?: boolean | undefined;
+  positive?: boolean | undefined;
 }) {
   return (
     <div
@@ -48,7 +48,7 @@ function Stat({
       </span>
       {sub ? <span className="mt-1.5 font-sans text-xs text-muted-foreground">{sub}</span> : null}
     </div>
-  )
+  );
 }
 
 export function ExecutivePanel({
@@ -56,18 +56,21 @@ export function ExecutivePanel({
   engine,
   breakEven,
 }: {
-  inputs: ModelInputs
-  engine: EngineResult
-  breakEven: BreakEvenResult
+  inputs: ModelInputs;
+  engine: EngineResult;
+  breakEven: BreakEvenResult;
 }) {
-  const cur = inputs.baseline.currency
-  const evidence = evidenceCopy[inputs.effects.evidenceType] ?? { label: "Unspecified", tone: "weak" as const }
+  const cur = inputs.baseline.currency;
+  const evidence = evidenceCopy[inputs.effects.evidenceType] ?? {
+    label: "Unspecified",
+    tone: "weak" as const,
+  };
   const toneClass =
     evidence.tone === "strong"
       ? "bg-primary/10 text-primary"
       : evidence.tone === "medium"
         ? "bg-accent text-accent-foreground"
-        : "bg-maroon/10 text-maroon"
+        : "bg-maroon/10 text-maroon";
 
   return (
     <section aria-labelledby="exec-heading" className="flex flex-col gap-4">
@@ -77,7 +80,8 @@ export function ExecutivePanel({
             Executive decision panel
           </h2>
           <p className="mt-1 font-sans text-sm text-muted-foreground">
-            {inputs.name} · {inputs.vertical} · {inputs.baseline.analysisHorizonMonths}-month horizon
+            {inputs.name} · {inputs.vertical} · {inputs.baseline.analysisHorizonMonths}-month
+            horizon
           </p>
         </div>
         <span className={cn("rounded-sm px-2.5 py-1 font-sans text-xs font-semibold", toneClass)}>
@@ -109,7 +113,9 @@ export function ExecutivePanel({
           />
           <Stat
             label="Simple ROI"
-            value={engine.simpleROI === null ? "Not calculable" : formatPercent(engine.simpleROI, 0)}
+            value={
+              engine.simpleROI === null ? "Not calculable" : formatPercent(engine.simpleROI, 0)
+            }
             positive={engine.simpleROI === null ? undefined : engine.simpleROI >= 0}
           />
           <Stat label="Payback" value={formatMonths(engine.paybackMonth)} />
@@ -127,7 +133,9 @@ export function ExecutivePanel({
                 ? formatPercent(breakEven.requiredRelativeLift)
                 : "Infeasible"
           }
-          sub={breakEven.feasibleLift ? "Relative lift to reach NPV = 0" : "Exceeds a plausible range"}
+          sub={
+            breakEven.feasibleLift ? "Relative lift to reach NPV = 0" : "Exceeds a plausible range"
+          }
         />
         <Stat
           label="Break-even adoption"
@@ -148,9 +156,10 @@ export function ExecutivePanel({
       </div>
 
       <p className="font-sans text-xs leading-relaxed text-muted-foreground">
-        Indicative scenario estimate using {engine.marginLabel} margin. Not a forecast and not proof of
-        incrementality. The break-even figures are the testable thresholds a pilot should aim to clear.
+        Indicative scenario estimate using {engine.marginLabel} margin. Not a forecast and not proof
+        of incrementality. The break-even figures are the testable thresholds a pilot should aim to
+        clear.
       </p>
     </section>
-  )
+  );
 }

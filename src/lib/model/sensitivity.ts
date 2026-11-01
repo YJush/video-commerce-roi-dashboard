@@ -1,15 +1,15 @@
-import { runEngine } from "./engine"
-import type { ModelInputs, SensitivityRow } from "./types"
-import { formatPercent, formatCurrency } from "./format"
+import { runEngine } from "./engine";
+import type { ModelInputs, SensitivityRow } from "./types";
+import { formatPercent, formatCurrency } from "./format";
 
 interface VarDef {
-  key: string
-  label: string
-  low: number
-  high: number
-  format: (v: number, inputs: ModelInputs) => string
-  apply: (d: ModelInputs, v: number) => void
-  read: (inputs: ModelInputs) => number
+  key: string;
+  label: string;
+  low: number;
+  high: number;
+  format: (v: number, inputs: ModelInputs) => string;
+  apply: (d: ModelInputs, v: number) => void;
+  read: (inputs: ModelInputs) => number;
 }
 
 /**
@@ -19,9 +19,9 @@ interface VarDef {
  * chart rather than a decorative one.
  */
 export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
-  const cur = inputs.baseline.currency
-  const pct = (v: number) => formatPercent(v)
-  const money = (v: number) => formatCurrency(v, cur)
+  const cur = inputs.baseline.currency;
+  const pct = (v: number) => formatPercent(v);
+  const money = (v: number) => formatCurrency(v, cur);
 
   const vars: VarDef[] = [
     {
@@ -32,8 +32,8 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: pct,
       read: (i) => i.effects.relativeConversionLift,
       apply: (d, v) => {
-        d.effects.conversionInputMode = "relative"
-        d.effects.relativeConversionLift = v
+        d.effects.conversionInputMode = "relative";
+        d.effects.relativeConversionLift = v;
       },
     },
     {
@@ -44,7 +44,7 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: pct,
       read: (i) => i.reach.maxTrafficCoverage,
       apply: (d, v) => {
-        d.reach.maxTrafficCoverage = v
+        d.reach.maxTrafficCoverage = v;
       },
     },
     {
@@ -55,7 +55,7 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: (v) => `${Math.round(v)} mo`,
       read: (i) => i.reach.rampDurationMonths,
       apply: (d, v) => {
-        d.reach.rampDurationMonths = v
+        d.reach.rampDurationMonths = v;
       },
     },
     {
@@ -66,7 +66,7 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: (v) => `${(v * 100).toFixed(1)} pp`,
       read: (i) => i.effects.returnRateChangePP,
       apply: (d, v) => {
-        d.effects.returnRateChangePP = v
+        d.effects.returnRateChangePP = v;
       },
     },
     {
@@ -77,7 +77,7 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: pct,
       read: (i) => i.effects.aovChangeRate,
       apply: (d, v) => {
-        d.effects.aovChangeRate = v
+        d.effects.aovChangeRate = v;
       },
     },
     {
@@ -88,8 +88,8 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: pct,
       read: marginOf,
       apply: (d, v) => {
-        if (d.baseline.contributionMarginRate !== null) d.baseline.contributionMarginRate = v
-        else d.baseline.grossMarginRate = v
+        if (d.baseline.contributionMarginRate !== null) d.baseline.contributionMarginRate = v;
+        else d.baseline.grossMarginRate = v;
       },
     },
     {
@@ -100,7 +100,7 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: money,
       read: (i) => i.costs.annualPlatformCost,
       apply: (d, v) => {
-        d.costs.annualPlatformCost = v
+        d.costs.annualPlatformCost = v;
       },
     },
     {
@@ -111,10 +111,10 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: money,
       read: (i) => i.costs.annualProductionCost + i.costs.annualStaffingCost,
       apply: (d, v) => {
-        const base = inputs.costs.annualProductionCost + inputs.costs.annualStaffingCost
-        const scale = base > 0 ? v / base : 1
-        d.costs.annualProductionCost = inputs.costs.annualProductionCost * scale
-        d.costs.annualStaffingCost = inputs.costs.annualStaffingCost * scale
+        const base = inputs.costs.annualProductionCost + inputs.costs.annualStaffingCost;
+        const scale = base > 0 ? v / base : 1;
+        d.costs.annualProductionCost = inputs.costs.annualProductionCost * scale;
+        d.costs.annualStaffingCost = inputs.costs.annualStaffingCost * scale;
       },
     },
     {
@@ -125,18 +125,18 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       format: pct,
       read: (i) => i.financial.annualDiscountRate,
       apply: (d, v) => {
-        d.financial.annualDiscountRate = v
+        d.financial.annualDiscountRate = v;
       },
     },
-  ]
+  ];
 
   const rows: SensitivityRow[] = vars.map((v) => {
-    const lowInputs = structuredClone(inputs)
-    v.apply(lowInputs, v.low)
-    const highInputs = structuredClone(inputs)
-    v.apply(highInputs, v.high)
-    const lowNpv = runEngine(lowInputs).npv
-    const highNpv = runEngine(highInputs).npv
+    const lowInputs = structuredClone(inputs);
+    v.apply(lowInputs, v.low);
+    const highInputs = structuredClone(inputs);
+    v.apply(highInputs, v.high);
+    const lowNpv = runEngine(lowInputs).npv;
+    const highNpv = runEngine(highInputs).npv;
     return {
       key: v.key,
       label: v.label,
@@ -146,12 +146,12 @@ export function computeSensitivity(inputs: ModelInputs): SensitivityRow[] {
       lowNpv,
       highNpv,
       swing: Math.abs(highNpv - lowNpv),
-    }
-  })
+    };
+  });
 
-  return rows.sort((a, b) => b.swing - a.swing)
+  return rows.sort((a, b) => b.swing - a.swing);
 }
 
 function marginOf(inputs: ModelInputs): number {
-  return inputs.baseline.contributionMarginRate ?? inputs.baseline.grossMarginRate
+  return inputs.baseline.contributionMarginRate ?? inputs.baseline.grossMarginRate;
 }

@@ -1,23 +1,23 @@
-import { Info } from "lucide-react"
-import type { ReactNode } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { cn } from "@/lib/utils"
+import { Info } from "lucide-react";
+import type { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-type InputKind = "input" | "assumption" | "sourced"
+type InputKind = "input" | "assumption" | "sourced";
 
 const kindStyles: Record<InputKind, string> = {
   input: "bg-secondary text-muted-foreground",
   assumption: "bg-accent text-accent-foreground",
   sourced: "bg-maroon/10 text-maroon",
-}
+};
 
 const kindLabel: Record<InputKind, string> = {
   input: "input",
   assumption: "assumption",
   sourced: "sourced",
-}
+};
 
 function FieldShell({
   id,
@@ -27,12 +27,12 @@ function FieldShell({
   suffix,
   children,
 }: {
-  id: string
-  label: string
-  hint?: string | undefined
-  kind?: InputKind | undefined
-  suffix?: string | undefined
-  children: ReactNode
+  id: string;
+  label: string;
+  hint?: string | undefined;
+  kind?: InputKind | undefined;
+  suffix?: string | undefined;
+  children: ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -53,11 +53,17 @@ function FieldShell({
         {hint ? (
           <Tooltip>
             <TooltipTrigger asChild>
-              <button type="button" className="text-muted-foreground/70 transition-colors hover:text-primary" aria-label={`About ${label}`}>
+              <button
+                type="button"
+                className="text-muted-foreground/70 transition-colors hover:text-primary"
+                aria-label={`About ${label}`}
+              >
                 <Info className="h-3.5 w-3.5" />
               </button>
             </TooltipTrigger>
-            <TooltipContent className="max-w-xs font-sans text-xs leading-relaxed">{hint}</TooltipContent>
+            <TooltipContent className="max-w-xs font-sans text-xs leading-relaxed">
+              {hint}
+            </TooltipContent>
           </Tooltip>
         ) : null}
       </div>
@@ -70,7 +76,7 @@ function FieldShell({
         ) : null}
       </div>
     </div>
-  )
+  );
 }
 
 export function NumberField({
@@ -84,15 +90,15 @@ export function NumberField({
   step,
   min,
 }: {
-  id: string
-  label: string
-  value: number
-  onChange: (v: number) => void
-  hint?: string
-  kind?: InputKind
-  suffix?: string
-  step?: number
-  min?: number
+  id: string;
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  hint?: string;
+  kind?: InputKind;
+  suffix?: string;
+  step?: number;
+  min?: number;
 }) {
   return (
     <FieldShell id={id} label={label} hint={hint} kind={kind} suffix={suffix}>
@@ -107,7 +113,7 @@ export function NumberField({
         className="font-sans tabular-nums"
       />
     </FieldShell>
-  )
+  );
 }
 
 /** Percent field: stores a fraction, displays/edits as a percentage. */
@@ -121,14 +127,14 @@ export function PercentField({
   step = 0.1,
   points = false,
 }: {
-  id: string
-  label: string
-  value: number
-  onChange: (v: number) => void
-  hint?: string
-  kind?: InputKind
-  step?: number
-  points?: boolean
+  id: string;
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  hint?: string;
+  kind?: InputKind;
+  step?: number;
+  points?: boolean;
 }) {
   return (
     <FieldShell id={id} label={label} hint={hint} kind={kind} suffix={points ? "pp" : "%"}>
@@ -142,5 +148,5 @@ export function PercentField({
         className="font-sans tabular-nums pr-9"
       />
     </FieldShell>
-  )
+  );
 }

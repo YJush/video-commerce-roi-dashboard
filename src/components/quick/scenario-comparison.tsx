@@ -1,21 +1,22 @@
-import type { ScenarioResult } from "@/lib/model/types"
-import { formatCurrency, formatMonths, formatNumber, formatPercent } from "@/lib/model/format"
-import { cn } from "@/lib/utils"
+import type { ScenarioResult } from "@/lib/model/types";
+import { formatCurrency, formatMonths, formatNumber, formatPercent } from "@/lib/model/format";
+import { cn } from "@/lib/utils";
 
 function adoptionAtMonth(s: ScenarioResult, month: number): number {
-  const row = s.engine.months.find((m) => m.month === month) ?? s.engine.months[s.engine.months.length - 1]
-  return row ? row.adoption : 0
+  const row =
+    s.engine.months.find((m) => m.month === month) ?? s.engine.months[s.engine.months.length - 1];
+  return row ? row.adoption : 0;
 }
 
 export function ScenarioComparison({
   scenarios,
   currency,
 }: {
-  scenarios: ScenarioResult[]
-  currency: string
+  scenarios: ScenarioResult[];
+  currency: string;
 }) {
   const sumRetained = (s: ScenarioResult) =>
-    s.engine.months.reduce((a, m) => a + m.incrementalRetainedOrders, 0)
+    s.engine.months.reduce((a, m) => a + m.incrementalRetainedOrders, 0);
 
   const rows: { label: string; render: (s: ScenarioResult) => string; highlight?: boolean }[] = [
     { label: "Adoption at month 3", render: (s) => formatPercent(adoptionAtMonth(s, 2)) },
@@ -28,7 +29,11 @@ export function ScenarioComparison({
       render: (s) => formatCurrency(s.engine.totalUndiscountedBenefit, currency),
     },
     { label: "Total cost", render: (s) => formatCurrency(s.engine.totalProgramCost, currency) },
-    { label: "Net benefit", render: (s) => formatCurrency(s.engine.horizonNetBenefit, currency), highlight: true },
+    {
+      label: "Net benefit",
+      render: (s) => formatCurrency(s.engine.horizonNetBenefit, currency),
+      highlight: true,
+    },
     {
       label: "ROI",
       render: (s) => (s.engine.simpleROI === null ? "n/a" : formatPercent(s.engine.simpleROI, 0)),
@@ -44,7 +49,7 @@ export function ScenarioComparison({
             ? formatPercent(s.breakEven.requiredRelativeLift)
             : "infeasible",
     },
-  ]
+  ];
 
   return (
     <section aria-labelledby="scen-heading" className="flex flex-col gap-4">
@@ -53,7 +58,8 @@ export function ScenarioComparison({
           Scenario comparison
         </h2>
         <p className="mt-1 font-sans text-sm text-muted-foreground">
-          Conservative, working and strong. The middle case is your working input — not an expectation.
+          Conservative, working and strong. The middle case is your working input — not an
+          expectation.
         </p>
       </div>
 
@@ -99,5 +105,5 @@ export function ScenarioComparison({
         </table>
       </div>
     </section>
-  )
+  );
 }

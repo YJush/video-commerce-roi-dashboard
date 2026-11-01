@@ -1,10 +1,10 @@
-import { AlertTriangle, ShieldAlert } from "lucide-react"
-import type { ValidationIssue } from "@/lib/model/types"
+import { AlertTriangle, ShieldAlert } from "lucide-react";
+import type { ValidationIssue } from "@/lib/model/types";
 
 export function Warnings({ issues }: { issues: ValidationIssue[] }) {
-  if (issues.length === 0) return null
-  const errors = issues.filter((i) => i.level === "error")
-  const warnings = issues.filter((i) => i.level === "warning")
+  if (issues.length === 0) return null;
+  const errors = issues.filter((i) => i.level === "error");
+  const warnings = issues.filter((i) => i.level === "warning");
 
   return (
     <div className="flex flex-col gap-2">
@@ -43,5 +43,5 @@ export function Warnings({ issues }: { issues: ValidationIssue[] }) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }

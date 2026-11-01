@@ -1,4 +1,4 @@
-import type { ModelInputs, ScenarioKey } from "./types"
+import type { ModelInputs, ScenarioKey } from "./types";
 
 // All example values are ROUND, ILLUSTRATIVE numbers. They are NOT industry
 // benchmarks and must be labelled as fictional examples in the UI.
@@ -60,7 +60,7 @@ export const fashionExample: ModelInputs = {
     annualDiscountRate: 0.12,
     terminalValue: 0,
   },
-}
+};
 
 export const beautyExample: ModelInputs = {
   name: "Lumière Beauty",
@@ -119,7 +119,7 @@ export const beautyExample: ModelInputs = {
     annualDiscountRate: 0.12,
     terminalValue: 0,
   },
-}
+};
 
 export const electronicsExample: ModelInputs = {
   name: "Volt & Co.",
@@ -178,19 +178,19 @@ export const electronicsExample: ModelInputs = {
     annualDiscountRate: 0.12,
     terminalValue: 0,
   },
-}
+};
 
 export const examples: Record<string, ModelInputs> = {
   fashion: fashionExample,
   beauty: beautyExample,
   electronics: electronicsExample,
-}
+};
 
 export const exampleList = [
   { key: "fashion", label: "Mid-sized fashion retailer", data: fashionExample },
   { key: "beauty", label: "Premium beauty retailer", data: beautyExample },
   { key: "electronics", label: "Consumer-electronics retailer", data: electronicsExample },
-]
+];
 
 /**
  * Derive Conservative / Working / Strong scenarios from a working-case input.
@@ -198,36 +198,40 @@ export const exampleList = [
  * cost intensity differ. The middle case is "Working", never "Expected".
  */
 export function scenarioInputs(base: ModelInputs, key: ScenarioKey): ModelInputs {
-  const d: ModelInputs = structuredClone(base)
-  if (key === "working") return d
+  const d: ModelInputs = structuredClone(base);
+  if (key === "working") return d;
 
   if (key === "conservative") {
-    d.effects.relativeConversionLift = base.effects.relativeConversionLift * 0.5
-    d.effects.absoluteConversionRateChange = base.effects.absoluteConversionRateChange * 0.5
-    d.effects.returnRateChangePP = base.effects.returnRateChangePP * 0.5
-    d.effects.aovChangeRate = 0
-    d.effects.confidenceAdjustment = Math.min(base.effects.confidenceAdjustment, 0.6)
-    d.reach.maxTrafficCoverage = base.reach.maxTrafficCoverage * 0.8
-    d.reach.rampDurationMonths = base.reach.rampDurationMonths + 3
-    d.costs.annualProductionCost = base.costs.annualProductionCost * 1.15
-    d.costs.annualStaffingCost = base.costs.annualStaffingCost * 1.15
-    return d
+    d.effects.relativeConversionLift = base.effects.relativeConversionLift * 0.5;
+    d.effects.absoluteConversionRateChange = base.effects.absoluteConversionRateChange * 0.5;
+    d.effects.returnRateChangePP = base.effects.returnRateChangePP * 0.5;
+    d.effects.aovChangeRate = 0;
+    d.effects.confidenceAdjustment = Math.min(base.effects.confidenceAdjustment, 0.6);
+    d.reach.maxTrafficCoverage = base.reach.maxTrafficCoverage * 0.8;
+    d.reach.rampDurationMonths = base.reach.rampDurationMonths + 3;
+    d.costs.annualProductionCost = base.costs.annualProductionCost * 1.15;
+    d.costs.annualStaffingCost = base.costs.annualStaffingCost * 1.15;
+    return d;
   }
 
   // strong
-  d.effects.relativeConversionLift = base.effects.relativeConversionLift * 1.5
-  d.effects.absoluteConversionRateChange = base.effects.absoluteConversionRateChange * 1.5
-  d.effects.returnRateChangePP = base.effects.returnRateChangePP * 1.3
-  d.effects.aovChangeRate = base.effects.aovChangeRate + 0.02
-  d.effects.confidenceAdjustment = Math.min(base.effects.confidenceAdjustment + 0.1, 0.95)
-  d.reach.maxTrafficCoverage = Math.min(base.reach.maxTrafficCoverage * 1.15, 1)
-  d.reach.rampDurationMonths = Math.max(base.reach.rampDurationMonths - 3, 1)
-  d.costs.annualProductionCost = base.costs.annualProductionCost * 0.9
-  return d
+  d.effects.relativeConversionLift = base.effects.relativeConversionLift * 1.5;
+  d.effects.absoluteConversionRateChange = base.effects.absoluteConversionRateChange * 1.5;
+  d.effects.returnRateChangePP = base.effects.returnRateChangePP * 1.3;
+  d.effects.aovChangeRate = base.effects.aovChangeRate + 0.02;
+  d.effects.confidenceAdjustment = Math.min(base.effects.confidenceAdjustment + 0.1, 0.95);
+  d.reach.maxTrafficCoverage = Math.min(base.reach.maxTrafficCoverage * 1.15, 1);
+  d.reach.rampDurationMonths = Math.max(base.reach.rampDurationMonths - 3, 1);
+  d.costs.annualProductionCost = base.costs.annualProductionCost * 0.9;
+  return d;
 }
 
 export const scenarioMeta: { key: ScenarioKey; label: string; blurb: string }[] = [
-  { key: "conservative", label: "Conservative", blurb: "Muted effect, slower rollout, higher operating cost." },
+  {
+    key: "conservative",
+    label: "Conservative",
+    blurb: "Muted effect, slower rollout, higher operating cost.",
+  },
   { key: "working", label: "Working case", blurb: "The values you entered. Not an expectation." },
   { key: "strong", label: "Strong", blurb: "Favourable effect, faster rollout, leaner cost." },
-]
+];

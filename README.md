@@ -1,48 +1,79 @@
-# Screenshot Recreation Study
+# Video Commerce ROI Dashboard
 
-A frontend implementation study built from a screenshot reference with Lovable.
+[![CI](https://github.com/YJush/video-commerce-roi-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/YJush/video-commerce-roi-dashboard/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-B8390D.svg)](LICENSE)
 
-**Status: design experiment.** This is an exercise in translating a visual reference into a working interface, rather than a complete business application. The original reference and a measured visual comparison are not documented here yet, so no pixel-accuracy claim is made.
+A browser-based business case model for shoppable video and live shopping. It estimates incremental profit, payback and the conversion lift a program needs to break even, then turns the result into a measurement plan for a controlled pilot.
+
+Built by [Industry Contents](https://industrycontents.com) and published through [IC Lab](https://industrycontents.com/ic-lab/).
+
+![Executive decision panel with break-even analysis](docs/results.png)
+
+<details>
+<summary>Start screen</summary>
+
+![Start screen](docs/start-screen.png)
+
+</details>
+
+## What it calculates
+
+- **Incremental contribution** from conversion lift, return-rate change and order-value change, after a confidence haircut on the modelled effect.
+- **Break-even requirements:** the relative lift, percentage-point change, incremental retained orders and monthly benefit needed to cover total cost.
+- **Cash flow over the horizon:** monthly net and cumulative cash flow, discounted cash flow and payback period.
+- **Scenarios:** conservative, working and strong cases side by side.
+- **Sensitivity:** which inputs move the result most.
+- **Pilot design:** what a controlled test must measure before the program is scaled.
+
+Inputs are labelled by evidence type (company history, randomized experiment, external benchmark, internal assumption, illustrative example), so assumptions stay visible next to the output.
+
+## Privacy
+
+All calculations run in the browser. The app makes no network requests with your inputs and stores nothing on a server.
 
 ## Stack
 
-React 19 · TypeScript · TanStack Start/Router · Vite · Tailwind CSS 4 · shadcn-style components
+React 19, TypeScript, TanStack Start, Vite, Tailwind CSS 4, shadcn/ui.
 
-## Development
-
-Install a Node.js version supported by the installed Vite release and npm:
+## Getting started
 
 ```sh
-git clone https://github.com/YJush/accurate-render-clone.git
-cd accurate-render-clone
-npm install
+git clone https://github.com/YJush/video-commerce-roi-dashboard.git
+cd video-commerce-roi-dashboard
+npm ci
 npm run dev
 ```
-
-A Bun lockfile is also included. Use a consistent package manager when updating dependencies and do not treat an npm install as a frozen-lockfile installation.
 
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the development server |
-| `npm run build` | Build the project |
-| `npm run preview` | Preview the build |
+| `npm run build` | Production build |
 | `npm run lint` | Run ESLint |
-| `npm run format` | Apply Prettier formatting; modifies files |
+| `npm run format` | Format with Prettier |
 
-## Project structure
+## Model
 
-`src/` contains the interface source, `public/` contains static assets, and `vite.config.ts` configures the build. `AGENTS.md` documents the Lovable connection and Git-history constraints.
+The calculation engine lives in `src/lib/model/`, separate from the interface:
 
-## Validation still needed
+| File | Role |
+| --- | --- |
+| `types.ts` | Input and result types |
+| `engine.ts` | Monthly cash-flow engine |
+| `breakeven.ts` | Break-even solver |
+| `sensitivity.ts` | One-at-a-time sensitivity analysis |
+| `pilot.ts` | Pilot design output |
+| `examples.ts` | Illustrative fictional retailers |
 
-Document the reference, the active route and your implementation decisions. Add screenshots at desktop and mobile widths, check keyboard navigation and contrast, and compare spacing, typography and responsive behavior against the reference. No automated test suite or measured visual regression result is currently included.
+The bundled examples are fictional and illustrative, not industry benchmarks.
 
-## Contribution and publication notes
+## Contributing
 
-This repository is connected to Lovable. New commits sync to the connected editor. Do not rewrite published Git history, force-push, or amend/rebase published commits.
+Issues and pull requests are welcome. Please run `npm run lint` and `npm run build` before submitting.
 
-Before public release, confirm rights to reproduce the screenshot and any logos, images or other assets. Review dependencies, source and history for sensitive material. Describe AI-assisted tooling honestly and distinguish original work from generated scaffolding.
+## Security
+
+See [SECURITY.md](SECURITY.md) to report a vulnerability.
 
 ## License
 
-No project license is currently included. Dependency licenses and rights in the reference design remain separate.
+[MIT](LICENSE) © Yajush Gupta

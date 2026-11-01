@@ -1,14 +1,20 @@
-import type { EngineResult, ModelInputs } from "@/lib/model/types"
-import { formatCurrency } from "@/lib/model/format"
+import type { EngineResult, ModelInputs } from "@/lib/model/types";
+import { formatCurrency } from "@/lib/model/format";
 
-export function ValueDecomposition({ inputs, engine }: { inputs: ModelInputs; engine: EngineResult }) {
-  const cur = inputs.baseline.currency
-  const conversion = engine.conversionContributionTotal
-  const returns = engine.operationalSavingsTotal
-  const totalBenefit = conversion + returns
-  const totalCost = engine.totalProgramCost
-  const net = totalBenefit - totalCost
-  const maxBar = Math.max(totalBenefit, totalCost, 1)
+export function ValueDecomposition({
+  inputs,
+  engine,
+}: {
+  inputs: ModelInputs;
+  engine: EngineResult;
+}) {
+  const cur = inputs.baseline.currency;
+  const conversion = engine.conversionContributionTotal;
+  const returns = engine.operationalSavingsTotal;
+  const totalBenefit = conversion + returns;
+  const totalCost = engine.totalProgramCost;
+  const net = totalBenefit - totalCost;
+  const maxBar = Math.max(totalBenefit, totalCost, 1);
 
   const rows = [
     {
@@ -29,10 +35,13 @@ export function ValueDecomposition({ inputs, engine }: { inputs: ModelInputs; en
       value: -totalCost,
       tone: "bg-maroon",
     },
-  ]
+  ];
 
   return (
-    <section aria-labelledby="decomp-heading" className="flex flex-col gap-4 rounded-md border border-border bg-card p-6">
+    <section
+      aria-labelledby="decomp-heading"
+      className="flex flex-col gap-4 rounded-md border border-border bg-card p-6"
+    >
       <div>
         <h2 id="decomp-heading" className="font-serif text-2xl font-semibold text-foreground">
           Value decomposition
@@ -56,14 +65,19 @@ export function ValueDecomposition({ inputs, engine }: { inputs: ModelInputs; en
               </span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-              <div className={row.tone} style={{ width: `${(Math.abs(row.value) / maxBar) * 100}%`, height: "100%" }} />
+              <div
+                className={row.tone}
+                style={{ width: `${(Math.abs(row.value) / maxBar) * 100}%`, height: "100%" }}
+              />
             </div>
           </div>
         ))}
       </div>
 
       <div className="flex items-center justify-between rounded-md bg-secondary px-4 py-3">
-        <span className="font-sans text-sm font-semibold uppercase tracking-wide text-foreground">Net benefit</span>
+        <span className="font-sans text-sm font-semibold uppercase tracking-wide text-foreground">
+          Net benefit
+        </span>
         <span
           className={`font-sans tabular-nums text-lg font-bold ${net >= 0 ? "text-primary" : "text-destructive"}`}
         >
@@ -72,5 +86,5 @@ export function ValueDecomposition({ inputs, engine }: { inputs: ModelInputs; en
         </span>
       </div>
     </section>
-  )
+  );
 }

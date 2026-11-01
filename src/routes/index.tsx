@@ -45,7 +45,13 @@ function clone(inputs: ModelInputs): ModelInputs {
   return JSON.parse(JSON.stringify(inputs)) as ModelInputs;
 }
 
-function QuickView({ inputs, setInputs }: { inputs: ModelInputs; setInputs: (i: ModelInputs) => void }) {
+function QuickView({
+  inputs,
+  setInputs,
+}: {
+  inputs: ModelInputs;
+  setInputs: (i: ModelInputs) => void;
+}) {
   const update = (fn: (draft: ModelInputs) => void) => {
     const draft = clone(inputs);
     fn(draft);
@@ -67,8 +73,8 @@ function QuickView({ inputs, setInputs }: { inputs: ModelInputs; setInputs: (i: 
               Your assumptions
             </h2>
             <p className="mt-2 font-serif text-sm leading-relaxed text-muted-foreground">
-              Every field is labelled as an input, an assumption, or a sourced value. Nothing here is
-              a benchmark or a promise.
+              Every field is labelled as an input, an assumption, or a sourced value. Nothing here
+              is a benchmark or a promise.
             </p>
             <div className="mt-3">
               <InputForm inputs={inputs} update={update} />
@@ -84,9 +90,9 @@ function QuickView({ inputs, setInputs }: { inputs: ModelInputs; setInputs: (i: 
           <ScenarioComparison scenarios={scenarios} currency={inputs.baseline.currency} />
           <SensitivityPanel rows={sensitivity} currency={inputs.baseline.currency} />
           <p className="font-sans text-xs leading-relaxed text-muted-foreground">
-            All figures are indicative scenario estimates derived from your assumptions. They are not
-            evidence that any platform causes the modelled lift — only a controlled pilot can show
-            that.
+            All figures are indicative scenario estimates derived from your assumptions. They are
+            not evidence that any platform causes the modelled lift — only a controlled pilot can
+            show that.
           </p>
         </div>
       </div>

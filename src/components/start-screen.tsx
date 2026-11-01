@@ -1,16 +1,16 @@
-import { ArrowRight, FlaskConical, LineChart, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { exampleList } from "@/lib/model/examples"
-import type { ModelInputs } from "@/lib/model/types"
+import { ArrowRight, FlaskConical, LineChart, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { exampleList } from "@/lib/model/examples";
+import type { ModelInputs } from "@/lib/model/types";
 
 export function StartScreen({
   onExample,
   onQuick,
   onPilot,
 }: {
-  onExample: (data: ModelInputs) => void
-  onQuick: () => void
-  onPilot: () => void
+  onExample: (data: ModelInputs) => void;
+  onQuick: () => void;
+  onPilot: () => void;
 }) {
   return (
     <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
@@ -22,9 +22,9 @@ export function StartScreen({
           Model the commercial impact of shoppable video before you commit.
         </h1>
         <p className="mt-4 text-pretty font-serif text-lg leading-relaxed text-muted-foreground">
-          Estimate the incremental profit an on-site shoppable-video or live-shopping program could create,
-          calculate the performance required to break even, and define what a controlled pilot must measure.
-          Every result is an indicative scenario estimate, not a promise.
+          Estimate the incremental profit an on-site shoppable-video or live-shopping program could
+          create, calculate the performance required to break even, and define what a controlled
+          pilot must measure. Every result is an indicative scenario estimate, not a promise.
         </p>
       </div>
 
@@ -33,11 +33,13 @@ export function StartScreen({
         <section className="flex flex-col rounded-md border border-border bg-card p-6">
           <div className="flex items-center gap-2 text-primary">
             <Sparkles className="h-4 w-4" />
-            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">Explore an example</h2>
+            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">
+              Explore an example
+            </h2>
           </div>
           <p className="mt-2 font-serif text-sm leading-relaxed text-muted-foreground">
-            A fictional retailer is already loaded — no data entry required. Illustrative examples, not
-            industry benchmarks.
+            A fictional retailer is already loaded — no data entry required. Illustrative examples,
+            not industry benchmarks.
           </p>
           <div className="mt-4 flex flex-col gap-2">
             {exampleList.map((ex) => (
@@ -58,14 +60,17 @@ export function StartScreen({
         <section className="flex flex-col rounded-md border border-border bg-card p-6">
           <div className="flex items-center gap-2 text-primary">
             <LineChart className="h-4 w-4" />
-            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">Build a quick scenario</h2>
+            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">
+              Build a quick scenario
+            </h2>
           </div>
           <p className="mt-2 font-serif text-sm leading-relaxed text-muted-foreground">
-            Enter a limited set of approximate business inputs. The dashboard models additional retained
-            orders, net benefit, ROI, payback and break-even.
+            Enter a limited set of approximate business inputs. The dashboard models additional
+            retained orders, net benefit, ROI, payback and break-even.
           </p>
           <p className="mt-4 font-serif text-sm italic text-muted-foreground">
-            Your inputs are calculated in your browser and are not stored or sent to Industry Contents.
+            Your inputs are calculated in your browser and are not stored or sent to Industry
+            Contents.
           </p>
           <Button onClick={onQuick} className="mt-auto w-full font-sans text-sm">
             Start a business case
@@ -77,11 +82,13 @@ export function StartScreen({
         <section className="flex flex-col rounded-md border border-border bg-card p-6">
           <div className="flex items-center gap-2 text-maroon">
             <FlaskConical className="h-4 w-4" />
-            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">Evaluate a pilot</h2>
+            <h2 className="font-sans text-sm font-bold uppercase tracking-wide">
+              Evaluate a pilot
+            </h2>
           </div>
           <p className="mt-2 font-serif text-sm leading-relaxed text-muted-foreground">
-            Already ran a test? Enter real control and treatment results to measure incremental lift,
-            significance and net pilot value — with a causal-validity check.
+            Already ran a test? Enter real control and treatment results to measure incremental
+            lift, significance and net pilot value — with a causal-validity check.
           </p>
           <Button
             onClick={onPilot}
@@ -95,9 +102,10 @@ export function StartScreen({
       </div>
 
       <p className="mt-8 max-w-3xl font-sans text-xs leading-relaxed text-muted-foreground">
-        This model does not prove that any video-commerce platform causes the assumed lift, and does not
-        substitute for a controlled pilot. It translates your economics into a testable break-even threshold.
+        This model does not prove that any video-commerce platform causes the assumed lift, and does
+        not substitute for a controlled pilot. It translates your economics into a testable
+        break-even threshold.
       </p>
     </div>
-  )
+  );
 }

@@ -58,15 +58,7 @@ const recommendationCopy = {
   },
 };
 
-function Stat({
-  label,
-  value,
-  sub,
-}: {
-  label: string;
-  value: string;
-  sub?: string | undefined;
-}) {
+function Stat({ label, value, sub }: { label: string; value: string; sub?: string | undefined }) {
   return (
     <div className="rounded-sm border border-border bg-secondary/40 p-4">
       <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-wide text-muted-foreground">

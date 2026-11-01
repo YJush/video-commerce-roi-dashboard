@@ -1,13 +1,7 @@
 import type { SensitivityRow } from "@/lib/model/types";
 import { formatCurrency } from "@/lib/model/format";
 
-export function SensitivityPanel({
-  rows,
-  currency,
-}: {
-  rows: SensitivityRow[];
-  currency: string;
-}) {
+export function SensitivityPanel({ rows, currency }: { rows: SensitivityRow[]; currency: string }) {
   if (rows.length === 0) return null;
   const maxSwing = Math.max(...rows.map((r) => Math.abs(r.swing)), 1);
 
@@ -26,7 +20,8 @@ export function SensitivityPanel({
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <span className="font-sans text-sm font-medium text-foreground">{r.label}</span>
               <span className="font-sans text-xs tabular-nums text-muted-foreground">
-                {r.lowValue} → {r.highValue} · swing {formatCurrency(r.swing, currency, { compact: true })}
+                {r.lowValue} → {r.highValue} · swing{" "}
+                {formatCurrency(r.swing, currency, { compact: true })}
               </span>
             </div>
             <div className="h-2 w-full overflow-hidden rounded-sm bg-secondary">

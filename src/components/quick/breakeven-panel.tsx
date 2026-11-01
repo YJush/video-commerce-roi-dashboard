@@ -1,24 +1,28 @@
-import type { BreakEvenResult, EngineResult, ModelInputs } from "@/lib/model/types"
-import { formatCurrency, formatNumber, formatPercent } from "@/lib/model/format"
+import type { BreakEvenResult, EngineResult, ModelInputs } from "@/lib/model/types";
+import { formatCurrency, formatNumber, formatPercent } from "@/lib/model/format";
 
 export function BreakEvenPanel({
   inputs,
   engine,
   breakEven,
 }: {
-  inputs: ModelInputs
-  engine: EngineResult
-  breakEven: BreakEvenResult
+  inputs: ModelInputs;
+  engine: EngineResult;
+  breakEven: BreakEvenResult;
 }) {
-  const cur = inputs.baseline.currency
-  const assumedLift = inputs.effects.relativeConversionLift
-  const be = breakEven.requiredRelativeLift
+  const cur = inputs.baseline.currency;
+  const assumedLift = inputs.effects.relativeConversionLift;
+  const be = breakEven.requiredRelativeLift;
 
   const rows: { label: string; value: string }[] = [
     {
       label: "Required relative conversion lift",
       value:
-        be === null ? "Not calculable" : breakEven.feasibleLift ? formatPercent(be) : "No feasible solution",
+        be === null
+          ? "Not calculable"
+          : breakEven.feasibleLift
+            ? formatPercent(be)
+            : "No feasible solution",
     },
     {
       label: "Required percentage-point change",
@@ -57,9 +61,9 @@ export function BreakEvenPanel({
             ? formatPercent(breakEven.requiredMaxCoverage)
             : "No feasible solution",
     },
-  ]
+  ];
 
-  const clears = be !== null && breakEven.feasibleLift && assumedLift >= be
+  const clears = be !== null && breakEven.feasibleLift && assumedLift >= be;
 
   return (
     <section
@@ -71,22 +75,23 @@ export function BreakEvenPanel({
           Break-even
         </h2>
         <p className="mt-1 font-sans text-sm text-muted-foreground">
-          The minimum performance the program must reach — a testable pilot threshold, not a forecast.
+          The minimum performance the program must reach — a testable pilot threshold, not a
+          forecast.
         </p>
       </div>
 
       {be !== null && breakEven.feasibleLift ? (
         <p className="text-pretty font-serif text-lg leading-relaxed text-foreground">
           At the current cost and traffic assumptions, the program needs a{" "}
-          <span className="font-semibold text-primary">{formatPercent(be)}</span> relative conversion
-          improvement to break even over the horizon. Your working assumption is{" "}
+          <span className="font-semibold text-primary">{formatPercent(be)}</span> relative
+          conversion improvement to break even over the horizon. Your working assumption is{" "}
           <span className="font-semibold">{formatPercent(assumedLift)}</span>
           {clears ? ", which clears the threshold." : ", which does not clear it."}
         </p>
       ) : (
         <p className="text-pretty font-serif text-lg leading-relaxed text-foreground">
-          There is no feasible conversion lift within a plausible range that makes this program break even at
-          the current cost and traffic assumptions.
+          There is no feasible conversion lift within a plausible range that makes this program
+          break even at the current cost and traffic assumptions.
         </p>
       )}
 
@@ -101,5 +106,5 @@ export function BreakEvenPanel({
         ))}
       </dl>
     </section>
-  )
+  );
 }
